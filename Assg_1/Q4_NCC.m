@@ -26,19 +26,19 @@ theta = -45:1:45;
 nccs = [];
 
 for angle = theta
-    J_rotate= imrotate(J1,angle,"bilinear","crop");
+    J_rotate= imrotate(J3,angle,"bilinear","crop");
     num = 0;
     den1 = 0;
     den2 = 0;
-    J3_mean = mean(J3 ,"all");
+    J1_mean = mean(J1 ,"all");
     J_rotate_mean = mean(J_rotate , "all");
     
-    for i = 1:min(size(J_rotate,1) ,size(J3 , 1))
-        for j = 1:min(size(J_rotate,2), size(J3 ,2))
-            if (J3(i,j)>20 && J_rotate(i,j)>20)
-                num = num + (J_rotate(i,j) - J_rotate_mean)*(J3(i,j)-J3_mean);
+    for i = 1:min(size(J_rotate,1) ,size(J1 , 1))
+        for j = 1:min(size(J_rotate,2), size(J1 ,2))
+            if (J1(i,j)>20 && J_rotate(i,j)>20)
+                num = num + (J_rotate(i,j) - J_rotate_mean)*(J1(i,j)-J1_mean);
                 den1 = den1 + (J_rotate(i,j) - J_rotate_mean)^2;
-                den2 = den2 + (J3(i,j) - J3_mean)^2;            
+                den2 = den2 + (J1(i,j) - J1_mean)^2;            
             end
         end
     end
