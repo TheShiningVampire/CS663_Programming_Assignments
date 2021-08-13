@@ -25,8 +25,8 @@ theta = -45:1:45;
 nccs = [];
 
 for angle = theta
-    J_rotate= imrotate(J3,angle,"bilinear","crop");
-    ncc = NCC(J_rotate , J1);
+    J4= imrotate(J3,angle,"bilinear","crop");
+    ncc = NCC(J4 , J1);
     nccs = [nccs ncc];
 end
 
@@ -34,3 +34,5 @@ figure,plot(theta , nccs);  xlabel("Angles (in degree)"); ylabel("Normalised Cro
 opt_ncc = min(nccs);
 opt_theta = theta(find(nccs== min(nccs)));
 fprintf("We get the minimuum NCC = %d at an angle of %d degree \n",opt_ncc , opt_theta);
+%%
+% Using
