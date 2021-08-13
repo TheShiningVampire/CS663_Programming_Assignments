@@ -15,6 +15,7 @@ function x = JE(J1 , J2)
         end
     end
     
+    Hist = Hist/numel(Hist);
     Hist1 = Hist;
     Hist1(find(Hist1 == 0)) = 1; % Made all the zero entries in the Histogram to 1 so that the log of them is 0
     Log2_Hist = log2(Hist1);

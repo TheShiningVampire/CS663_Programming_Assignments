@@ -47,6 +47,6 @@ for angle = theta
 end
 
 figure,plot(theta , JEs);  xlabel("Angles (in degree)"); ylabel("Joint Entropy"); title("Plot of JE versus Theta");
-opt_ncc = max(JEs);
-opt_theta = theta(find(JEs== max(JEs)));
-fprintf("We get the maximum JE = %d at an angle of %d degree \n",opt_ncc , opt_theta);
+opt_ncc = min(JEs);
+opt_theta = theta(find(JEs== min(JEs)));
+fprintf("We get the minimum JE = %d at an angle of %d degree \n",opt_ncc , opt_theta);
