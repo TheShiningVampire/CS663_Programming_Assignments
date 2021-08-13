@@ -35,4 +35,18 @@ opt_ncc = min(nccs);
 opt_theta = theta(find(nccs== min(nccs)));
 fprintf("We get the minimuum NCC = %d at an angle of %d degree \n",opt_ncc , opt_theta);
 %%
-% Using
+% Using Joint Entropy as the metric
+
+theta = -45:1:45;
+JEs = [];
+
+for angle = theta
+    J4= imrotate(J3,angle,"bilinear","crop");
+    je = JE(J4 , J1);
+    JEs = [JEs je];
+end
+
+figure,plot(theta , JEs);  xlabel("Angles (in degree)"); ylabel("Joint Entropy"); title("Plot of JE versus Theta");
+opt_ncc = max(JEs);
+opt_theta = theta(find(JEs== max(JEs)));
+fprintf("We get the maximum JE = %d at an angle of %d degree \n",opt_ncc , opt_theta);
