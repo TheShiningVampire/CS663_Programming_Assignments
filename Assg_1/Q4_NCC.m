@@ -16,7 +16,7 @@ J3 = imrotate(J2 , 28.5 , "bilinear","crop");
 figure, imagesc(J1); colormap("gray"); axis("equal"); impixelinfo; 
 figure, imagesc(J2); colormap("gray"); axis("equal"); impixelinfo; 
 figure, imagesc(J3); colormap("gray"); axis("equal"); impixelinfo; 
-J_rotate= imrotate(J1,28,"bilinear","crop");
+J_rotate= imrotate(J3,-29,"bilinear","crop");
 figure, imagesc(J_rotate); colormap("gray"); axis("equal"); impixelinfo; 
 
 %%
@@ -47,6 +47,6 @@ for angle = theta
     nccs = [nccs ncc];
 end
 
-plot(theta , nccs)
+figure,plot(theta , nccs);  xlabel("Angles (in degree)"); ylabel("Normalised Cross Correlation (NCC)"); title("Plot of NCC versus Theta");
 
 theta(find(nccs== min(nccs)))
