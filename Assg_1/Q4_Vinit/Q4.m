@@ -34,7 +34,7 @@ end
 figure,plot(theta , nccs);  xlabel("Angles (in degree)"); ylabel("Normalised Cross Correlation (NCC)"); title("Plot of NCC versus Theta");
 opt_ncc = min(nccs);
 opt_theta = theta(find(nccs== min(nccs)));
-fprintf("We get the minimuum NCC = %d at an angle of %d degree \n",opt_ncc , opt_theta);
+fprintf("We get the minimum NCC = %d at an angle of %d degree \n",opt_ncc , opt_theta);
 %% 
 % Using Joint Entropy as the metric
 
