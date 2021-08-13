@@ -10,7 +10,7 @@ im1 = im + randn(size(im))*10; % note: randn(size(im)) is an array of same size 
 figure, imshow(im1/255);
 % another way:
 figure,imagesc(im); colormap(gray); axis('equal'); % imagesc is NOT part of the image processing toolbox
-
+impixelinfo;
 im1(im1 < 0) = 0; im1(im1 > 255)= 255; im1 = uint8(im1);
 imwrite(im1,'barbara_noisy.png'); % before using imwrite, you MUST conver the image into uint8 format!
 
