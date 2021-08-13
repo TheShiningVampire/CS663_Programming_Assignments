@@ -1,4 +1,5 @@
 clear;
+close all;
 clc;
 
 J1 = imread('T1.jpg');
@@ -34,7 +35,7 @@ figure,plot(theta , nccs);  xlabel("Angles (in degree)"); ylabel("Normalised Cro
 opt_ncc = min(nccs);
 opt_theta = theta(find(nccs== min(nccs)));
 fprintf("We get the minimuum NCC = %d at an angle of %d degree \n",opt_ncc , opt_theta);
-%%
+%% 
 % Using Joint Entropy as the metric
 
 theta = -45:1:45;
@@ -47,6 +48,21 @@ for angle = theta
 end
 
 figure,plot(theta , JEs);  xlabel("Angles (in degree)"); ylabel("Joint Entropy"); title("Plot of JE versus Theta");
-opt_ncc = min(JEs);
+opt_je = min(JEs);
 opt_theta = theta(find(JEs== min(JEs)));
-fprintf("We get the minimum JE = %d at an angle of %d degree \n",opt_ncc , opt_theta);
+fprintf("We get the minimum JE = %d at an angle of %d degree \n",opt_je , opt_theta);
+%%
+% Using QMI as the metric
+theta = -45:1:45;
+QMIs = [];
+
+for angle = theta
+    J4= imrotate(J3,angle,"bilinear","crop");
+    qmi = QMI(J4 , J1);
+    QMIs = [QMIs qmi];
+end
+
+figure,plot(theta , QMIs);  xlabel("Angles (in degree)"); ylabel("QMI"); title("Plot of QMI versus Theta");
+opt_qmi = min(QMIs);
+opt_theta = theta(find(QMIs== max(QMIs)));
+fprintf("We get the maximum QMI = %d at an angle of %d degree \n",opt_qmi , opt_theta);
