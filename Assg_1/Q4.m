@@ -17,9 +17,8 @@ figure, imagesc(J1); colormap("gray"); axis("equal"); impixelinfo;
 figure, imagesc(J2); colormap("gray"); axis("equal"); impixelinfo; 
 figure, imagesc(J3); colormap("gray"); axis("equal"); impixelinfo; 
 J_rotate= imrotate(J3,-29,"bilinear","crop");
-figure, imagesc(J_rotate); colormap("gray"); axis("equal"); impixelinfo; 
-
-%%
+figure, imagesc(J_rotate); colormap("gray"); axis("equal"); impixelinfo;
+%% 
 % Using NCC as the metric
 
 theta = -45:1:45;
@@ -27,26 +26,11 @@ nccs = [];
 
 for angle = theta
     J_rotate= imrotate(J3,angle,"bilinear","crop");
-    num = 0;
-    den1 = 0;
-    den2 = 0;
-    J1_mean = mean(J1 ,"all");
-    J_rotate_mean = mean(J_rotate , "all");
-    
-    for i = 1:min(size(J_rotate,1) ,size(J1 , 1))
-        for j = 1:min(size(J_rotate,2), size(J1 ,2))
-            if (J1(i,j)>20 && J_rotate(i,j)>20)
-                num = num + (J_rotate(i,j) - J_rotate_mean)*(J1(i,j)-J1_mean);
-                den1 = den1 + (J_rotate(i,j) - J_rotate_mean)^2;
-                den2 = den2 + (J1(i,j) - J1_mean)^2;            
-            end
-        end
-    end
-    
-    ncc = abs(num)/(sqrt(den1*den2));
+    ncc = NCC(J_rotate , J1);
     nccs = [nccs ncc];
 end
 
 figure,plot(theta , nccs);  xlabel("Angles (in degree)"); ylabel("Normalised Cross Correlation (NCC)"); title("Plot of NCC versus Theta");
-
-theta(find(nccs== min(nccs)))
+opt_ncc = min(nccs);
+opt_theta = theta(find(nccs== min(nccs)));
+fprintf("We get the minimuum NCC = %d at an angle of %d degree \n",opt_ncc , opt_theta);
