@@ -49,4 +49,4 @@ end
 
 plot(theta , nccs)
 
-theta(find(nccs== max(nccs)))
+theta(find(nccs== min(nccs)))
