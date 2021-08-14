@@ -53,7 +53,7 @@ J_aligned_ncc = imrotate(J3 , opt_theta_ncc , "bilinear","crop");
 J_aligned_je = imrotate(J3 , opt_theta_je , "bilinear","crop");
 J_aligned_qmi = imrotate(J3 , opt_theta_qmi , "bilinear","crop");   
 
-subplot(1,3,1);
+figure, subplot(1,3,1);
 imagesc(J_aligned_ncc); colormap("gray"); axis("equal"); title("Aligned image using NCC");
 subplot(1,3,2);
 imagesc(J_aligned_je); colormap("gray"); axis("equal"); title("Aligned image using JE");
