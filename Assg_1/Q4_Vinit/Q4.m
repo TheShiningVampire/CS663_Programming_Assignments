@@ -12,7 +12,6 @@ J2 = J2 + 1;
 J3 = imrotate(J2 , 28.5 , "bilinear","crop");
 figure, imagesc(J1); colormap("gray"); axis("equal"); title("Target image"); impixelinfo; 
 figure, imagesc(J3); colormap("gray"); axis("equal"); title("Rotated image"); impixelinfo; 
-
 %% 
 % Using NCC as the metricz
 
@@ -134,3 +133,4 @@ function x = QMI(J1 , J2)
         Hist_Diff_Squared = Hist_Diff.^2;
         x = sum(Hist_Diff_Squared,"all");
 end
+
