@@ -37,7 +37,6 @@ figure(8); imshow(J4-1); title('aligned rotated image 2 wrt image 1');
 toc;
 
 %%
-
 %%%%%%%%%%%%%
 % functions %
 %%%%%%%%%%%%%
