@@ -16,15 +16,15 @@ for i=1:length(theta)
     QMI(i) = compute_QMI(JH);                        % compute quadrature mutual information
 end
 
-figure(1); plot(theta, NCC); xlabel('theta'); ylabel('NCC'); title('Normalised Cross Correlation');
-figure(2); plot(theta, JE); xlabel('theta'); ylabel('JE'); title('Joint Entropy');
-figure(3); plot(theta, QMI); xlabel('theta'); ylabel('QMI'); title('Quadrature Mutual Information');
+figure(1); plot(theta, NCC); xlabel('theta'); ylabel('NCC'); title('Normalised Cross Correlation'); grid on;
+figure(2); plot(theta, JE); xlabel('theta'); ylabel('JE'); title('Joint Entropy'); grid on;
+figure(3); plot(theta, QMI); xlabel('theta'); ylabel('QMI'); title('Quadrature Mutual Information'); grid on;
 
 [m,ind] = min(JE);
 J4 = imrotate(J3+1,theta(ind),'crop');
 J4c = J4-1; b = J4c~=-1; J1c=J1(b); J4c=J4c(b);  
 JH = compute_JH2(J1c,J4c,BW);
-figure(4); imagesc(0:BW:255,0:BW:255,JH); colorbar; xlabel('I2'); ylabel('I1'); title('Joint Histogram with bin width 10');
+figure(4); imagesc(0:BW:255,0:BW:255,JH); colorbar; xlabel('J4'); ylabel('J1'); title('Joint Histogram for minimum JE with bin width 10');
 
 figure(5); imshow(J1); title('image 1');
 figure(6); imshow(J2); title('image 2');
