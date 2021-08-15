@@ -1,5 +1,6 @@
 clear; clc;
 
+tic;
 im1 = im2double(imread('goi1.jpg')); figure(1); imshow(im1); title('goi1');
 im2 = im2double(imread('goi2_downsampled.jpg')); figure(2); imshow(im2); title('goi2');
 
@@ -42,6 +43,8 @@ bilip = bilinear_ip(im1,X(b),Y(b));
 X = V(1,:); Y = V(2,:);
 V1D = Y(b) + (size(im1,1)*(X(b)-1));
 TBL(V1D) = bilip; figure(4); imshow(TBL); title('Transformed image goi1 with bilinear interpolation');
+
+toc;
 
 function bilip = bilinear_ip(I,X,Y)
     LB = floor(Y) + (size(I,1)*(floor(X)-1));

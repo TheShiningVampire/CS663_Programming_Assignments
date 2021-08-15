@@ -22,6 +22,8 @@ QMIs = [];
 
 for angle = theta
     J4= imrotate(J3,angle,"bilinear","crop");
+    J4 = J4-1;
+    J4(find(J4==-1)) = 0;
     ncc = NCC(J4 , J1);
     je = JE(J4 , J1);
     qmi = QMI(J4 , J1);

@@ -1,12 +1,12 @@
 clear; clc;
 
+tic;
 %%
 im1 = im2double(imread('goi1.jpg'));
 im2 = im2double(imread('goi2_downsampled.jpg'));
 
-figure,imshow(im1); title('Gate Of India (Image 1)');
-figure,imshow(im2); title('Gate Of India (Image 2)');
-
+figure,imagesc(im1); colormap("gray"); axis("equal"); title('Gate Of India (Image 1)');
+figure,imagesc(im2); colormap("gray"); axis("equal"); title('Gate Of India (Image 2)');
 
 %%
 % Default values for the P1 and P2 matrices
@@ -47,15 +47,18 @@ A = P2*P1'*inv(P1*P1'); %Ax = y , where x is the pixel in im1 and y is the pixel
 
 %Reverse warping with nearest neighbour interpolation function  
 Warped_Image_nn = NN_Interpolate(im1, im2,A);
-figure, imagesc(Warped_Image_nn); colormap("gray"); axis("equal"); title("Warped Image using Nearest Neighbour Interpolation");
+figure, imagesc(Warped_Image_nn); colormap("gray"); axis("equal");title("Warped Image using Nearest Neighbour Interpolation");
+
+% Warped_Image_nn = uint8(Warped_Image_nn*255);
+% imwrite(Warped_Image_nn,'assignment1\\5\\images\\nn.png');
 
 %Reverse warping with nearest Bilinear interpolation
 Warped_Image_Bilinear = Bilinear_Interpolate(im1, im2,A);
-figure, imagesc(Warped_Image_Bilinear); colormap("gray"); axis("equal"); title("Warped Image using Bilinear Interpolation");
+figure, imshow(Warped_Image_Bilinear); %title("Warped Image using Bilinear Interpolation");
 
-%Comapring the results
-figure, subplot(1,2,1), imshow(im1); title("Nearest Neighbour Interpolation");
-subplot(1,2,2), imshow(im2); title("Bilinear Interpolation");
+% Warped_Image_Bilinear = uint8(Warped_Image_Bilinear*255);
+% imwrite(Warped_Image_Bilinear,'assignment1\\5\\images\\bilinear.png');
+toc;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Functions %
