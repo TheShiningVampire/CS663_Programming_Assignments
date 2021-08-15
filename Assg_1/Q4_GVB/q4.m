@@ -1,5 +1,6 @@
 clear; clc;
 
+tic;
 J1 = im2double(imread('T1.jpg'));
 J2 = im2double(imread('T2.jpg'));
 J3 = imrotate(J2,28.5,'crop');
@@ -30,6 +31,8 @@ figure(5); imshow(J1); title('image 1');
 figure(6); imshow(J2); title('image 2');
 figure(7); imshow(J3); title('rotated image 2 by 28.5 degrees anti-clockwise');
 figure(8); imshow(J4-1); title('aligned rotated image 2 wrt image 1');
+
+toc;
 
 %%%%%%%%%%%%%
 % functions %
