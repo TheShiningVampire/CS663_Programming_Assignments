@@ -54,7 +54,7 @@ figure, imagesc(Warped_Image_nn); colormap("gray"); axis("equal");title("Warped 
 
 %Reverse warping with nearest Bilinear interpolation
 Warped_Image_Bilinear = Bilinear_Interpolate(im1, im2,A);
-figure, imshow(Warped_Image_Bilinear); %title("Warped Image using Bilinear Interpolation");
+figure, imshow(Warped_Image_Bilinear); title("Warped Image using Bilinear Interpolation");
 
 % Warped_Image_Bilinear = uint8(Warped_Image_Bilinear*255);
 % imwrite(Warped_Image_Bilinear,'assignment1\\5\\images\\bilinear.png');
