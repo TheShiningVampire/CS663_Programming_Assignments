@@ -5,8 +5,8 @@ img1 = imread('kodak24.png');
 img2 = imread('barbara256.png');
 
 % Display the images 
-figure; imagesc(img1); colormap gray; title('Original Image 1');
-figure; imagesc(img2); colormap gray; title('Original Image 2');
+figure; imagesc(img1); colormap gray; title('Original Kodak24');
+figure; imagesc(img2); colormap gray; title('Original Barbara');
 
 % Add Gaussian noise to the images 
 mean_n = 0; 
@@ -22,12 +22,20 @@ noise = sigma_n*noise + mean_n;
 img2 = double(img2) + noise;
 
 % Display the noisy images
-figure; imagesc(img1); colormap gray; title('Noisy Image 1');
-figure; imagesc(img2); colormap gray; title('Noisy Image 2');
+figure; imagesc(img1); colormap gray; title('Noisy Kodak24');
+figure; imagesc(img2); colormap gray; title('Noisy Barbara');
 
-% Filtered image 1
-filtered_image1 = mybilateralfilter(img1,2,2);
-figure, imagesc(filtered_image1); colormap gray; title('Filtered Image 1');
+% Filter with sigma_s = sigma_r = 2
+sigma_s  = 2;
+sigma_r  = 2;
+
+filtered_image1 = mybilateralfilter(img1,sigma_s,sigma_r);
+figure, imagesc(filtered_image1); colormap gray; title('Filtered Kodak24 with \sigma_s = 2 and \sigma_r=2');
+
+filtered_image2 = mybilateralfilter(img2,sigma_s,sigma_r);
+figure, imagesc(filtered_image2); colormap gray; title('Filtered Barbara with \sigma_s = 2 and \sigma_r=2');
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Functions %
