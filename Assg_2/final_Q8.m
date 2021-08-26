@@ -21,8 +21,8 @@ Ik = im2double(Ik);
 Ikn = Ik + sign/255*randn(size(Ik));
 
 
-sigs = 2; % filter spatial sd
-sigr = 2; % filter range sd
+sigs = 3; % filter spatial sd
+sigr = 15; % filter range sd
 
 sigr = sigr/255; % Scaled down to account for the scaling due to im2double
 
@@ -30,9 +30,9 @@ BFb = mybilateralfilter(Ibn,sigs,sigr);
 BFk = mybilateralfilter(Ikn,sigs,sigr);
 
 figure(5); imagesc(BFb); colormap("gray"); 
-title("filtered barbara256 with \sigma_n = " + num2str(sign) + ", \sigma_s = " + num2str(sigs) + ", \sigma_r = " + num2str(sigr));
+title("filtered barbara256 with \sigma_n = " + num2str(sign) + ", \sigma_s = " + num2str(sigs) + ", \sigma_r = " + num2str(sigr*255));
 figure(6); imagesc(BFk); colormap("gray");
-title("filtered kodak24 with \sigma_n = " + num2str(sign) + ", \sigma_s = " + num2str(sigs) + ", \sigma_r = " + num2str(sigr));
+title("filtered kodak24 with \sigma_n = " + num2str(sign) + ", \sigma_s = " + num2str(sigs) + ", \sigma_r = " + num2str(sigr*255));
 
 
 %% functions %%
