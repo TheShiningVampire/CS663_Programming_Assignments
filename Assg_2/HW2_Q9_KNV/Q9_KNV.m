@@ -142,7 +142,7 @@ impixelinfo;
 I_kod_BLfilter = mybilateralfilter(I_kod_noisy_2, 2, 2);
 
 figure; 
-imagesc(I_kod_BLfilter); colormap("gray");
+imagesc(I_kod_BLfilter); colormap("gray"); title('Filtered')
 impixelinfo; 
 
 %%
