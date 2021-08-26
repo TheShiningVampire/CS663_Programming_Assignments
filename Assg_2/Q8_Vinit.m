@@ -35,6 +35,25 @@ figure, imagesc(filtered_image1); colormap gray; title('Filtered Kodak24 with \s
 filtered_image2 = mybilateralfilter(img2,sigma_s,sigma_r);
 figure, imagesc(filtered_image2); colormap gray; title('Filtered Barbara with \sigma_s = 2 and \sigma_r=2');
 
+% Filter with sigma_s = sigma_r = 0.1
+sigma_s  = 0.1;
+sigma_r  = 0.1;
+
+filtered_image1 = mybilateralfilter(img1,sigma_s,sigma_r);
+figure, imagesc(filtered_image1); colormap gray; title('Filtered Kodak24 with \sigma_s = 0.1 and \sigma_r=0.1');
+
+filtered_image2 = mybilateralfilter(img2,sigma_s,sigma_r);
+figure, imagesc(filtered_image2); colormap gray; title('Filtered Barbara with \sigma_s = 0.1 and \sigma_r=0.1');
+
+% Filter with sigma_s =3 and sigma_r = 15
+sigma_s  = 3;
+sigma_r  = 15;
+
+filtered_image1 = mybilateralfilter(img1,sigma_s,sigma_r);
+figure, imagesc(filtered_image1); colormap gray; title('Filtered Kodak24 with \sigma_s = 3 and \sigma_r=15');
+
+filtered_image2 = mybilateralfilter(img2,sigma_s,sigma_r);
+figure, imagesc(filtered_image2); colormap gray; title('Filtered Barbara with \sigma_s = 3 and \sigma_r=15');
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -62,10 +81,10 @@ function filtered_image = mybilateralfilter(I, sigma_r, sigma_s)
             filter_size = (3*sigma_r); % This is half the size of the filter that will be used
             
             % Get the pixel co-ordinates of the local patch 
-            x_min = max(1, i - filter_size);
-            x_max = min(rows, i + filter_size);
-            y_min = max(1, j - filter_size);
-            y_max = min(columns, j + filter_size);
+            x_min = max(1, i - ceil(filter_size));
+            x_max = min(rows, i + ceil(filter_size));
+            y_min = max(1, j - ceil(filter_size));
+            y_max = min(columns, j + ceil(filter_size));
 
             % Get the local patch
             patch = I(x_min:x_max, y_min:y_max);
