@@ -8,18 +8,14 @@ figure(2); imagesc(Ik); colormap("gray"); title("kodak24");
 
 sign = 5;  % noise sd  
 
-Ibn = im2double(Ib + cast(sign*randn(size(Ib)),'uint8')); % not sure about this method of adding noise
-Ikn = im2double(Ik + cast(sign*randn(size(Ik)),'uint8'));
-
-figure(3); imagesc(Ibn); colormap("gray"); title("noisy barbara256 with \sigma_n = " + num2str(sign));
-figure(4); imagesc(Ikn); colormap("gray"); title("noisy kodak24 with \sigma_n = " + num2str(sign));
-
 Ib = im2double(Ib);
 Ibn = Ib + sign/255*randn(size(Ib));
 
 Ik = im2double(Ik);
 Ikn = Ik + sign/255*randn(size(Ik));
 
+figure(3); imagesc(Ibn); colormap("gray"); title("noisy barbara256 with \sigma_n = " + num2str(sign));
+figure(4); imagesc(Ikn); colormap("gray"); title("noisy kodak24 with \sigma_n = " + num2str(sign));
 
 sigs = 3; % filter spatial sd
 sigr = 15; % filter range sd
