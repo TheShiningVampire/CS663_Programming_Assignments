@@ -3,7 +3,7 @@ clear; close all;
 I1 = imread("LC1.png"); figure(1); imagesc(I1); colormap('gray'); title("LC1");
 I2 = imread("LC2.jpg"); figure(2); imagesc(I2); colormap('gray'); title("LC2");
 
-BW = 7; % bin width
+BW = 31; % bin width
 
 % local histogram equalisation
 LHE1 = cast(get_LHE(I1,BW),'uint8');
