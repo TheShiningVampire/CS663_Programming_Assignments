@@ -1,0 +1,322 @@
+\documentclass[12pt]{article}
+
+\title{Assignment 2: CS 663, Fall 2021}
+\author{\textbf{Question 2}}
+\date{}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{ulem}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{bm}
+\usepackage[margin=0.5in]{geometry}
+\begin{document}
+\maketitle
+
+\begin{itemize}
+    \item Consider the two images in the homework folder `barbara256.png' and `kodak24.png'. Add zero-mean Gaussian noise with standard deviation $\sigma = 5$ to both of them. Implement a bilateral filter and show the outputs of the bilateral filter on both images for the following parameter configurations: $(\sigma_s = 2, \sigma_r = 2); (\sigma_s = 0.1, \sigma_r = 0.1); (\sigma_s = 3, \sigma_r = 15)$. Comment on your results in your report. Repeat when the image is corrupted with zero-mean Gaussian noise of $\sigma = 10$ (with the same bilaterial filter parameters). Comment on your results in your report. For the bilateral filter implementation, write a MATLAB function \texttt{mybilateralfilter.m} which takes as input an image and parameters $\sigma_r, \sigma_s$. Implement your filter using at the most two nested for-loops for traversing the image indices. For creating the filter, use functions like meshgrid and vectorization for more efficient implementation. Include all image ouputs as well as noisy images in the report. \textsf{[15 points]}
+    \vspace*{0.5cm}\\
+    \textbf{Answer:} \\
+    $\sigma = 5$
+    \begin{figure}[H]
+        \centering
+        \begin{minipage}{.45\textwidth}
+          \centering
+          \includegraphics[height=3in,width=\linewidth]{8/images/barb_orig.png}
+          \caption*{Barbara original image}
+          \label{fig:totalpowervst}
+        \end{minipage}
+        \begin{minipage}{.45\textwidth}
+          \centering
+          \includegraphics[height=3in,width=\linewidth]{8/images/barb_nois_5.png}
+          \caption*{Barbara noisy image for $\sigma = 5$}
+          \label{fig:totalpower2}
+        \end{minipage}
+        %\caption{}
+        \label{fig:totalPower}
+    \end{figure}
+    
+    \begin{figure}[H]
+        \centering
+        \begin{minipage}{.45\textwidth}
+          \centering
+          \includegraphics[height=2.5in,width=\linewidth]{8/images/kod_orig.png}
+          \caption*{Kodak original image}
+          \label{fig:totalpowervst}
+        \end{minipage}
+        \begin{minipage}{.45\textwidth}
+          \centering
+          \includegraphics[height=2.5in,width=\linewidth]{8/images/kod_nois_5.png}
+          \caption*{Kodak noisy image for $\sigma = 5$}
+          \label{fig:totalpower2}
+        \end{minipage}
+        %\caption{}
+        \label{fig:totalPower}
+    \end{figure}
+    
+    $\sigma_s = 0.1, \ \sigma_r = 0.1$
+    \begin{figure}[H]
+        \centering
+        \begin{minipage}{.45\textwidth}
+          \centering
+          \includegraphics[height=3in,width=\linewidth]{8/images/barb_nois_5.png}
+          \caption*{Barbara noisy image for $\sigma = 5$}
+          \label{fig:totalpowervst}
+        \end{minipage}
+        \begin{minipage}{.45\textwidth}
+          \centering
+          \includegraphics[height=3in,width=\linewidth]{8/images/barb_flit_5_1_1.png}
+          \caption*{Filtered barbara image with $3\times 3$ bin}
+          \label{fig:totalpower2}
+        \end{minipage}
+        %\caption{}
+        \label{fig:totalPower}
+    \end{figure}
+    
+    \begin{figure}[H]
+        \centering
+        \begin{minipage}{.45\textwidth}
+          \centering
+          \includegraphics[height=2.5in,width=\linewidth]{8/images/kod_nois_5.png}
+          \caption*{Kodak noisy image for $\sigma = 5$}
+          \label{fig:totalpowervst}
+        \end{minipage}
+        \begin{minipage}{.45\textwidth}
+          \centering
+          \includegraphics[height=2.5in,width=\linewidth]{8/images/kod_filt_5_1_1.png}
+          \caption*{Filtered kodak image with $3\times 3$ bin}
+          \label{fig:totalpower2}
+        \end{minipage}
+        %\caption{}
+        \label{fig:totalPower}
+    \end{figure}
+    
+    $\sigma_s = 2, \ \sigma_r = 2$
+    \begin{figure}[H]
+        \centering
+        \begin{minipage}{.45\textwidth}
+          \centering
+          \includegraphics[height=3in,width=\linewidth]{8/images/barb_nois_5.png}
+          \caption*{Barbara noisy image for $\sigma = 5$}
+          \label{fig:totalpowervst}
+        \end{minipage}
+        \begin{minipage}{.45\textwidth}
+          \centering
+          \includegraphics[height=3in,width=\linewidth]{8/images/barb_flit_5_2_2.png}
+          \caption*{Filtered barbara image with $13\times 13$ bin}
+          \label{fig:totalpower2}
+        \end{minipage}
+        %\caption{}
+        \label{fig:totalPower}
+    \end{figure}
+    
+    \begin{figure}[H]
+        \centering
+        \begin{minipage}{.45\textwidth}
+          \centering
+          \includegraphics[height=2.5in,width=\linewidth]{8/images/kod_nois_5.png}
+          \caption*{Kodak noisy image for $\sigma = 5$}
+          \label{fig:totalpowervst}
+        \end{minipage}
+        \begin{minipage}{.45\textwidth}
+          \centering
+          \includegraphics[height=2.5in,width=\linewidth]{8/images/kod_filt_5_2_2.png}
+          \caption*{Filtered kodak image with $13\times 13$ bin}
+          \label{fig:totalpower2}
+        \end{minipage}
+        %\caption{}
+        \label{fig:totalPower}
+    \end{figure}
+    
+    $\sigma_s = 3, \ \sigma_r = 15$
+    \begin{figure}[H]
+        \centering
+        \begin{minipage}{.45\textwidth}
+          \centering
+          \includegraphics[height=3in,width=\linewidth]{8/images/barb_nois_5.png}
+          \caption*{Barbara noisy image for $\sigma = 5$}
+          \label{fig:totalpowervst}
+        \end{minipage}
+        \begin{minipage}{.45\textwidth}
+          \centering
+          \includegraphics[height=3in,width=\linewidth]{8/images/barb_flit_5_3_15.png}
+          \caption*{Filtered barbara image with $19\times 19$ bin}
+          \label{fig:totalpower2}
+        \end{minipage}
+        %\caption{}
+        \label{fig:totalPower}
+    \end{figure}
+    
+    \begin{figure}[H]
+        \centering
+        \begin{minipage}{.45\textwidth}
+          \centering
+          \includegraphics[height=2.5in,width=\linewidth]{8/images/kod_nois_5.png}
+          \caption*{Kodak noisy image for $\sigma = 5$}
+          \label{fig:totalpowervst}
+        \end{minipage}
+        \begin{minipage}{.45\textwidth}
+          \centering
+          \includegraphics[height=2.5in,width=\linewidth]{8/images/kod_filt_5_3_15.png}
+          \caption*{Filtered kodak image with $19\times 19$ bin}
+          \label{fig:totalpower2}
+        \end{minipage}
+        %\caption{}
+        \label{fig:totalPower}
+    \end{figure}
+    
+%--------------------------------------------------------------------------------------------
+
+    $\sigma = 10$
+    \begin{figure}[H]
+        \centering
+        \begin{minipage}{.45\textwidth}
+          \centering
+          \includegraphics[height=3in,width=\linewidth]{8/images/barb_orig.png}
+          \caption*{Barbara original image}
+          \label{fig:totalpowervst}
+        \end{minipage}
+        \begin{minipage}{.45\textwidth}
+          \centering
+          \includegraphics[height=3in,width=\linewidth]{8/images/barb_nois_10.png}
+          \caption*{Barbara noisy image for $\sigma = 10$}
+          \label{fig:totalpower2}
+        \end{minipage}
+        %\caption{}
+        \label{fig:totalPower}
+    \end{figure}
+    
+    \begin{figure}[H]
+        \centering
+        \begin{minipage}{.45\textwidth}
+          \centering
+          \includegraphics[height=2.5in,width=\linewidth]{8/images/kod_orig.png}
+          \caption*{Kodak original image}
+          \label{fig:totalpowervst}
+        \end{minipage}
+        \begin{minipage}{.45\textwidth}
+          \centering
+          \includegraphics[height=2.5in,width=\linewidth]{8/images/kod_nois_10.png}
+          \caption*{Kodak noisy image for $\sigma = 10$}
+          \label{fig:totalpower2}
+        \end{minipage}
+        %\caption{}
+        \label{fig:totalPower}
+    \end{figure}
+    
+    $\sigma_s = 0.1, \ \sigma_r = 0.1$
+    \begin{figure}[H]
+        \centering
+        \begin{minipage}{.45\textwidth}
+          \centering
+          \includegraphics[height=3in,width=\linewidth]{8/images/barb_nois_10.png}
+          \caption*{Barbara noisy image for $\sigma = 10$}
+          \label{fig:totalpowervst}
+        \end{minipage}
+        \begin{minipage}{.45\textwidth}
+          \centering
+          \includegraphics[height=3in,width=\linewidth]{8/images/barb_flit_10_1_1.png}
+          \caption*{Filtered barbara image with $3\times 3$ bin}
+          \label{fig:totalpower2}
+        \end{minipage}
+        %\caption{}
+        \label{fig:totalPower}
+    \end{figure}
+    
+    \begin{figure}[H]
+        \centering
+        \begin{minipage}{.45\textwidth}
+          \centering
+          \includegraphics[height=2.5in,width=\linewidth]{8/images/kod_nois_10.png}
+          \caption*{Kodak noisy image for $\sigma = 10$}
+          \label{fig:totalpowervst}
+        \end{minipage}
+        \begin{minipage}{.45\textwidth}
+          \centering
+          \includegraphics[height=2.5in,width=\linewidth]{8/images/kod_filt_10_1_1.png}
+          \caption*{Filtered kodak image with $3\times 3$ bin}
+          \label{fig:totalpower2}
+        \end{minipage}
+        %\caption{}
+        \label{fig:totalPower}
+    \end{figure}
+    
+    $\sigma_s = 2, \ \sigma_r = 2$
+    \begin{figure}[H]
+        \centering
+        \begin{minipage}{.45\textwidth}
+          \centering
+          \includegraphics[height=3in,width=\linewidth]{8/images/barb_nois_10.png}
+          \caption*{Barbara noisy image for $\sigma = 10$}
+          \label{fig:totalpowervst}
+        \end{minipage}
+        \begin{minipage}{.45\textwidth}
+          \centering
+          \includegraphics[height=3in,width=\linewidth]{8/images/barb_flit_10_2_2.png}
+          \caption*{Filtered barbara image with $13\times 13$ bin}
+          \label{fig:totalpower2}
+        \end{minipage}
+        %\caption{}
+        \label{fig:totalPower}
+    \end{figure}
+    
+    \begin{figure}[H]
+        \centering
+        \begin{minipage}{.45\textwidth}
+          \centering
+          \includegraphics[height=2.5in,width=\linewidth]{8/images/kod_nois_10.png}
+          \caption*{Kodak noisy image for $\sigma = 10$}
+          \label{fig:totalpowervst}
+        \end{minipage}
+        \begin{minipage}{.45\textwidth}
+          \centering
+          \includegraphics[height=2.5in,width=\linewidth]{8/images/kod_filt_10_2_2.png}
+          \caption*{Filtered kodak image with $13\times 13$ bin}
+          \label{fig:totalpower2}
+        \end{minipage}
+        %\caption{}
+        \label{fig:totalPower}
+    \end{figure}
+    
+    $\sigma_s = 3, \ \sigma_r = 15$
+    \begin{figure}[H]
+        \centering
+        \begin{minipage}{.45\textwidth}
+          \centering
+          \includegraphics[height=3in,width=\linewidth]{8/images/barb_nois_10.png}
+          \caption*{Barbara noisy image for $\sigma = 10$}
+          \label{fig:totalpowervst}
+        \end{minipage}
+        \begin{minipage}{.45\textwidth}
+          \centering
+          \includegraphics[height=3in,width=\linewidth]{8/images/barb_flit_10_3_15.png}
+          \caption*{Filtered barbara image with $19\times 19$ bin}
+          \label{fig:totalpower2}
+        \end{minipage}
+        %\caption{}
+        \label{fig:totalPower}
+    \end{figure}
+    
+    \begin{figure}[H]
+        \centering
+        \begin{minipage}{.45\textwidth}
+          \centering
+          \includegraphics[height=2.5in,width=\linewidth]{8/images/kod_nois_10.png}
+          \caption*{Kodak noisy image for $\sigma = 10$}
+          \label{fig:totalpowervst}
+        \end{minipage}
+        \begin{minipage}{.45\textwidth}
+          \centering
+          \includegraphics[height=2.5in,width=\linewidth]{8/images/kod_filt_10_3_15.png}
+          \caption*{Filtered kodak image with $19\times 19$ bin}
+          \label{fig:totalpower2}
+        \end{minipage}
+        %\caption{}
+        \label{fig:totalPower}
+    \end{figure}
+    
+\end{itemize}
+\end{document}
