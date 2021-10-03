@@ -2,10 +2,6 @@
  Codes written for the course CS 663 in Semester 7
 
 
-<!-- Copy-paste in your Readme.md file -->
-
-<a href = "https://github.com/TheShiningVampire/Python/graphs/contributors">
-  <img src = "https://contrib.rocks/image?repo = TheShiningVampire/CS663_Programming_Assignments"/>
+<a href="https://github.com/remarkablemark/html-react-parser/graphs/contributors">
+  <img src="https://opencollective.com/html-react-parser/contributors.svg?width=890&button=false">
 </a>
-
-Made with [contributors-img](https://contrib.rocks).
