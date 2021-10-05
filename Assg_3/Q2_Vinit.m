@@ -28,18 +28,24 @@ function img_filtered = IdealLowPass(img, cutoff_freq)
     F = fftshift(fft2(img));
     log_F = log(abs(F) + 1); % log(0) is undefined, so add 1
 
-    %% Display the magnitude of the Fourier transform of the image
-    figure; imshow(log_F, [min(log_F(:)) max(log_F(:))]); colormap("jet"); colorbar; title('Fourier Transform of the Image');
+    % %% Display the magnitude of the Fourier transform of the image
+    % figure; imshow(log_F, [min(log_F(:)) max(log_F(:))]); colormap("jet"); colorbar; title('Fourier Transform of the Image');
 
     % Apply the low pass filter of cutoff frequency 50
     Filter = zeros(size(F));
-    Filter(-cutoff_freq + size(Filter, 1) / 2 + 1:cutoff_freq + size(Filter, 1) / 2, -cutoff_freq + size(Filter, 2) / 2 + 1:cutoff_freq + size(Filter, 2) / 2) = 1;
+    [x, y] = meshgrid(-size(Filter, 1) / 2:size(Filter, 1) / 2 - 1, -size(Filter, 2) / 2:size(Filter, 2) / 2 - 1);
+    valid_indices = (x.^2 + y.^2) <= cutoff_freq^2;
+    Filter(valid_indices) = 1;
 
+    % Display the filter
+    figure; imshow(log(1 + Filter), [min(log(1 + Filter(:))) max(log(1 + Filter(:)))]); colormap("jet"); colorbar; title('Ideal Low Pass Filter');
+
+    % Filtering the image
     F_filtered = F .* Filter;
 
-    %% Display the magnitude of the Fourier transform of the filtered image
-    log_F_filtered = log(abs(F_filtered) + 1);
-    figure; imshow(log_F_filtered, [min(log_F_filtered(:)) max(log_F_filtered(:))]); colormap("jet"); colorbar; title('Fourier Transform of the Filtered Image');
+    % %% Display the magnitude of the Fourier transform of the filtered image
+    % log_F_filtered = log(abs(F_filtered) + 1);
+    % figure; imshow(log_F_filtered, [min(log_F_filtered(:)) max(log_F_filtered(:))]); colormap("jet"); colorbar; title('Fourier Transform of the Filtered Image');
 
     img_filtered = ifft2(ifftshift(F_filtered));
 end
@@ -49,19 +55,23 @@ function img_filtered = GaussianLowPass(img, sigma)
     F = fftshift(fft2(img));
     log_F = log(abs(F) + 1); % log(0) is undefined, so add 1
 
-    %% Display the magnitude of the Fourier transform of the image
-    figure; imshow(log_F, [min(log_F(:)) max(log_F(:))]); colormap("jet"); colorbar; title('Fourier Transform of the Image');
+    % %% Display the magnitude of the Fourier transform of the image
+    % figure; imshow(log_F, [min(log_F(:)) max(log_F(:))]); colormap("jet"); colorbar; title('Fourier Transform of the Image');
 
     % Apply the low pass filter of cutoff frequency 50
     Filter = zeros(size(F));
     [x, y] = meshgrid(-size(Filter, 1) / 2:size(Filter, 1) / 2 - 1, -size(Filter, 2) / 2:size(Filter, 2) / 2 - 1);
     Filter = exp(-((x.^2 + y.^2) / (2 * sigma^2)));
 
+    % Display the filter
+    figure; imshow(log(1 + Filter), [min(log(1 + Filter(:))) max(log(1 + Filter(:)))]); colormap("jet"); colorbar; title('Gaussian Low Pass Filter');
+
+    % filtering
     F_filtered = F .* Filter;
 
-    %% Display the magnitude of the Fourier transform of the filtered image
-    log_F_filtered = log(abs(F_filtered) + 1);
-    figure; imshow(log_F_filtered, [min(log_F_filtered(:)) max(log_F_filtered(:))]); colormap("jet"); colorbar; title('Fourier Transform of the Filtered Image');
+    % %% Display the magnitude of the Fourier transform of the filtered image
+    % log_F_filtered = log(abs(F_filtered) + 1);
+    % figure; imshow(log_F_filtered, [min(log_F_filtered(:)) max(log_F_filtered(:))]); colormap("jet"); colorbar; title('Fourier Transform of the Filtered Image');
 
     img_filtered = ifft2(ifftshift(F_filtered));
 end
