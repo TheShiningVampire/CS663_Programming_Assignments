@@ -7,14 +7,25 @@ img = im2double(imread('barbara256.png'));
 %% Display the original image
 figure; imshow(img); colormap("gray"); title('Original Image');
 
+% Pad the image to make the dimensions twice as large
+img_padded = padarray(img, [size(img, 1) / 2, size(img, 2) / 2]);
+
+% figure; imshow(img_padded); colormap("gray"); title('Padded Image');
+
 % Ideal Low pass filtered image
-img_filtered_ideal = IdealLowPass(img, 30);
+img_filtered_ideal = IdealLowPass(img_padded, 40);
+
+% Extract the central part of the image
+img_filtered_ideal = img_filtered_ideal(size(img, 1) / 2 + 1:size(img, 1) / 2 + size(img, 1), size(img, 2) / 2 + 1:size(img, 2) / 2 + size(img, 2));
 
 % Display filtered image when using an ideal Low Pass Filter
 figure; imshow(img_filtered_ideal); colormap("gray"); title('Ideal Low Pass Filter');
 
 % Gaussian Low Pass filtered image
-img_filtered_gaussian = GaussianLowPass(img, 30);
+img_filtered_gaussian = GaussianLowPass(img_padded, 40);
+
+% Extract the central part of the image
+img_filtered_gaussian = img_filtered_gaussian(size(img, 1) / 2 + 1:size(img, 1) / 2 + size(img, 1), size(img, 2) / 2 + 1:size(img, 2) / 2 + size(img, 2));
 
 % Display filtered image when using a Gaussian Low Pass Filter
 figure; imshow(img_filtered_gaussian); colormap("gray"); title('Gaussian Low Pass Filter');
@@ -28,8 +39,8 @@ function img_filtered = IdealLowPass(img, cutoff_freq)
     F = fftshift(fft2(img));
     log_F = log(abs(F) + 1); % log(0) is undefined, so add 1
 
-    % %% Display the magnitude of the Fourier transform of the image
-    % figure; imshow(log_F, [min(log_F(:)) max(log_F(:))]); colormap("jet"); colorbar; title('Fourier Transform of the Image');
+    %% Display the magnitude of the Fourier transform of the image
+    figure; imshow(log_F, [min(log_F(:)) max(log_F(:))]); colormap("jet"); colorbar; title('Fourier Transform of the Image');
 
     % Apply the low pass filter of cutoff frequency 50
     Filter = zeros(size(F));
