@@ -5,7 +5,7 @@ clear; close all; clc;
 img = im2double(imread('barbara256.png'));
 
 %% Display the original image
-figure; imshow(img); colormap("gray"); title('Original Image');
+figure; imshow(img); colormap("gray"); %title('Original Image');
 
 % Pad the image to make the dimensions twice as large
 img_padded = padarray(img, [size(img, 1) / 2, size(img, 2) / 2]);
@@ -19,7 +19,7 @@ img_filtered_ideal = IdealLowPass(img_padded, 40);
 img_filtered_ideal = img_filtered_ideal(size(img, 1) / 2 + 1:size(img, 1) / 2 + size(img, 1), size(img, 2) / 2 + 1:size(img, 2) / 2 + size(img, 2));
 
 % Display filtered image when using an ideal Low Pass Filter
-figure; imshow(img_filtered_ideal); colormap("gray"); title('Ideal Low Pass Filter');
+figure; imshow(img_filtered_ideal); colormap("gray"); %title('Ideal Low Pass Filter');
 
 % Gaussian Low Pass filtered image
 img_filtered_gaussian = GaussianLowPass(img_padded, 40);
@@ -28,7 +28,7 @@ img_filtered_gaussian = GaussianLowPass(img_padded, 40);
 img_filtered_gaussian = img_filtered_gaussian(size(img, 1) / 2 + 1:size(img, 1) / 2 + size(img, 1), size(img, 2) / 2 + 1:size(img, 2) / 2 + size(img, 2));
 
 % Display filtered image when using a Gaussian Low Pass Filter
-figure; imshow(img_filtered_gaussian); colormap("gray"); title('Gaussian Low Pass Filter');
+figure; imshow(img_filtered_gaussian); colormap("gray"); %title('Gaussian Low Pass Filter');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%                             FUNCTIONS                       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -54,9 +54,9 @@ function img_filtered = IdealLowPass(img, cutoff_freq)
     % Filtering the image
     F_filtered = F .* Filter;
 
-    % %% Display the magnitude of the Fourier transform of the filtered image
-    % log_F_filtered = log(abs(F_filtered) + 1);
-    % figure; imshow(log_F_filtered, [min(log_F_filtered(:)) max(log_F_filtered(:))]); colormap("jet"); colorbar; title('Fourier Transform of the Filtered Image');
+    %% Display the magnitude of the Fourier transform of the filtered image
+    log_F_filtered = log(abs(F_filtered) + 1);
+    figure; imshow(log_F_filtered, [min(log_F_filtered(:)) max(log_F_filtered(:))]); colormap("jet"); colorbar; title('Fourier Transform of the Filtered Image');
 
     img_filtered = ifft2(ifftshift(F_filtered));
 end
@@ -80,9 +80,9 @@ function img_filtered = GaussianLowPass(img, sigma)
     % filtering
     F_filtered = F .* Filter;
 
-    % %% Display the magnitude of the Fourier transform of the filtered image
-    % log_F_filtered = log(abs(F_filtered) + 1);
-    % figure; imshow(log_F_filtered, [min(log_F_filtered(:)) max(log_F_filtered(:))]); colormap("jet"); colorbar; title('Fourier Transform of the Filtered Image');
+    %% Display the magnitude of the Fourier transform of the filtered image
+    log_F_filtered = log(abs(F_filtered) + 1);
+    figure; imshow(log_F_filtered, [min(log_F_filtered(:)) max(log_F_filtered(:))]); colormap("jet"); colorbar; title('Fourier Transform of the Filtered Image');
 
     img_filtered = ifft2(ifftshift(F_filtered));
 end
