@@ -10,7 +10,7 @@ test_set = []; % testing set
 test_sub = []; % testing subjects
 
 for i = 1:32
-    imagefiles = dir("ORL/s" + num2str(i) + "/*.pgm");
+    imagefiles = dir("../../ORL/s" + num2str(i) + "/*.pgm");
 
     for ii = 1:length(imagefiles)
         currentfilename = imagefiles(ii).folder + "/" + imagefiles(ii).name;
@@ -20,9 +20,7 @@ for i = 1:32
             train_set = cat(2, train_set, currentimage(:));
             train_sub = cat(2, train_sub, i);
 
-        end
-
-        if (ii > 4)
+        else
             test_set = cat(2, test_set, currentimage(:));
             test_sub = cat(2, test_sub, i);
         end
@@ -33,7 +31,7 @@ end
 
 % Adding the last 32 images to the test set as well
 for i = 33:40
-    imagefiles = dir("ORL/s" + num2str(i) + "/*.pgm");
+    imagefiles = dir("../../ORL/s" + num2str(i) + "/*.pgm");
 
     for ii = 7:length(imagefiles)
         currentfilename = imagefiles(ii).folder + "/" + imagefiles(ii).name;
@@ -58,18 +56,11 @@ Y = test_set - mean_vector;
 % % using svd
 [U, S, V] = svd(X);
 
-% % using eig
-% L = X' * X;
-% [V, D] = eig(L, 'vector');
-% [D, ind] = sort(D, 'descend');
-% V = V(:, ind);
-% U = X * V;
-
-k = 70;
+k = 75;
 
 % For no matching identity we need to find a threshold value for the PCA eigen coefficients in mean squared sense
 % We find the threshold by cross validation
-threshold_values = linspace(50, 200, 100);
+threshold_values = linspace(70, 300, 100);
 best_score = 0;
 best_threshold = 0;
 true_positives = 0;
@@ -79,7 +70,8 @@ false_negatives = 0;
 recognition_rate = 0;
 
 for threshold_index = 1:length(threshold_values)
-    threshold = threshold_values(threshold_index);
+    %     threshold = threshold_values(threshold_index);
+    threshold = 110;
     true_negative_count = 0;
     false_negative_count = 0;
 
@@ -92,7 +84,8 @@ for threshold_index = 1:length(threshold_values)
     recognition_count = 0;
 
     for j = 1:n_test
-        [m, index] = min(sum((eigen_coef - test_coef(:, j)).^2));
+        error = sum((eigen_coef - test_coef(:, j)).^2);
+        [m, index] = min(error);
 
         if (m > threshold)
             % This means there are no matching eigen faces
@@ -123,9 +116,15 @@ for threshold_index = 1:length(threshold_values)
     accuracy = (true_positive_count + true_negative_count) / n_test;
     f1_score = true_positive_count / (true_positive_count + 0.5 * (false_positive_count + false_negative_count));
     recall = true_positive_count / (true_positive_count + false_negative_count);
+    score = false_positive_count + false_negative_count;
+
     % We keep the threshold value which gives the best Specificity
-    if (specificity > best_score)
-        best_score = specificity;
+    if (recall > best_score)
+        best_score = recall;
+        accuracy_ = accuracy;
+        f1_score_ = f1_score;
+        specificity_ = specificity;
+        recall_ = recall;
         best_threshold = threshold;
         false_positives = false_positive_count;
         false_negatives = false_negative_count;
@@ -136,7 +135,10 @@ for threshold_index = 1:length(threshold_values)
 
 end
 
-fprintf("Best Specificity: %f\n", best_score);
+fprintf("Accuracy: %f\n", accuracy_);
+fprintf("F1 Score: %f\n", f1_score_);
+% fprintf("Specificity: %f\n", specificity_);
+fprintf("Recall: %f\n", recall_);
 fprintf("Best Threshold: %f\n", best_threshold);
 
 % Print the confusion matrix

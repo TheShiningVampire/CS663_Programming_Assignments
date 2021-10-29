@@ -1,6 +1,7 @@
 % face recognition of Yale Face database
 clear; close all;
 
+tic;
 %% Get data points
 train_set = [];
 train_sub = [];
@@ -33,9 +34,10 @@ end
 %load("Yale_Face_data.mat");
 
 k = [1, 2, 3, 5, 10, 15, 20, 30, 50, 60, 65, 75, 100, 200, 300, 500, 1000];
-recognition_rate = face_recognition_b(train_set, train_sub, test_set, test_sub, k);
-plot(k, recognition_rate);
+recognition_rate = face_recognition_a(train_set, train_sub, test_set, test_sub, k);
+plot(k, recognition_rate, 'o-');
 
+toc;
 %% functions
 
 function recognition_rate = face_recognition_a(train_set, train_sub, test_set, test_sub, k)
@@ -44,7 +46,7 @@ function recognition_rate = face_recognition_a(train_set, train_sub, test_set, t
     Y = test_set - mean_vector;
     n_test = size(test_set, 2);
 
-    [U, S, V] = svds(X, k(end));
+    [U, S, V] = svds(X, k(end));            % Only calculating the maximum number of eigen-vectors needed
     recognition_rate = zeros(size(k));
 
     for i = 1:length(k)

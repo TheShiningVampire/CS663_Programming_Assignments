@@ -1,4 +1,4 @@
-% face recognition of ORL database
+% face recognition of ../../ORL database
 
 clear;
 tic;
@@ -10,7 +10,7 @@ test_set = []; % testing set
 test_sub = []; % testing subjects
 
 for i = 1:32
-    imagefiles = dir("ORL/s" + num2str(i) + "/*.pgm");
+    imagefiles = dir("../../ORL/s" + num2str(i) + "/*.pgm");
 
     for ii = 1:length(imagefiles)
         currentfilename = imagefiles(ii).folder + "/" + imagefiles(ii).name;
@@ -38,19 +38,19 @@ Y = test_set - mean_vector;
 %% Get eigen space and eigen coefficients
 
 % % using svd
-[U, S, V] = svds(X, 192);
+% [U, S, V] = svds(X);
 
 % using eig
-% L = X' * X;
-% [V, D] = eig(L, 'vector');
-% [D, ind] = sort(D, 'descend');
-% V = V(:, ind);
-% U = X * V;
-% 
-% % Normalizing the eigen vectors
-% for i = 1:size(U,2)
-%     U(:,i) = U(:,i)/norm(U(:,i));    
-% end
+L = X' * X;
+[V, D] = eig(L, 'vector');
+[D, ind] = sort(D, 'descend');
+V = V(:, ind);
+U = X * V;
+
+% Normalizing the eigen vectors
+for i = 1:size(U, 2)
+    U(:, i) = U(:, i) / norm(U(:, i));
+end
 
 k = [1, 2, 3, 5, 10, 15, 20, 30, 50, 75, 100, 150, 170];
 recognition_rate = zeros(size(k));
