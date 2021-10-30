@@ -1,8 +1,8 @@
 tic;
 
-clear;
-close all;
-clc;
+% clear;
+% close all;
+% clc;
 
 % Read the two images
 image1 = double(imread('barbara256.png'));
@@ -30,6 +30,7 @@ im1 = (im1 - min(im1(:))) / (max(im1(:)) - min(im1(:))) * 255;
 
 % denoised_image = myPCADenoising1(im1, sigma); % Denoised image using global PCA
 denoised_image = myPCADenoising2(im1, sigma); % Denoised image using spatially varying PCA
+% denoised_image = myBilateralFilter(im1, 3, 15); % Denoised image using bilateral filter
 
 % Display the result
 figure; imagesc(im1); colormap('gray'); title('Original Noisy Image');
