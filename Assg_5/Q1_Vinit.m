@@ -1,8 +1,8 @@
 tic;
 
-% clear;
-% close all;
-% clc;
+clear;
+close all;
+clc;
 
 % Read the two images
 image1 = double(imread('barbara256.png'));
