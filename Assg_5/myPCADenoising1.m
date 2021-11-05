@@ -11,8 +11,8 @@ function denoised_image = myPCADenoising1(im1, sigma)
     alphas = V' * P;
 
     % Now, we want to manipulate the eigen coefficients of the patches to get the denoised images
-    % For that we first find alpha_h = max(0 , 1/N * (sum (alpha_i ^2) - sigma^2))
-    alpha_i = max(0, (1 / N) * (sum(alphas.^2, 2) - sigma^2));
+    % For that we first find alpha_h = max(0 , 1/N *sum (alpha_i ^2) - sigma^2 )
+    alpha_i = max(0, (1 / N) * (sum(alphas.^2, 2)) - sigma^2);
 
     % Wiener Filter Update
     alphas_updated = zeros(size(alphas));

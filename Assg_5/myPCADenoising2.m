@@ -41,7 +41,7 @@ function denoised_image = myPCADenoising2(im1, sigma)
             alpha_central_patch = V' * patch(:);
 
             % Now we update the alpha value for the central patch
-            alpha_i = max(0, (1 / N) * (sum(alphas.^2, 2) - sigma^2));
+            alpha_i = max(0, (1 / N) * (sum(alphas.^2, 2)) - sigma^2);
 
             % Update the alpha value for the central patch
             for i = 1:patch_size^2
