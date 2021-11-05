@@ -19,14 +19,11 @@ image2_block = image2(1:256, 1:256);
 % figure; imagesc(image2_block); colormap('gray'); title('Original Image 2');
 
 % Consider one of the images
-im = image1; % To select image 1
-% im = image2_block; % To select image 2
+% im = image1; % To select image 1
+im = image2_block; % To select image 2
 
 % Adding zero mean Gaussian noise of sigma 20 to the image
 im1 = im + randn(size(im)) * sigma;
-
-% Scale the image to [0,255]
-im1 = (im1 - min(im1(:))) / (max(im1(:)) - min(im1(:))) * 255;
 
 % denoised_image = myPCADenoising1(im1, sigma); % Denoised image using global PCA
 denoised_image = myPCADenoising2(im1, sigma); % Denoised image using spatially varying PCA
